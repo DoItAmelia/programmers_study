@@ -13,5 +13,17 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\LV1">
+      <UniqueIdentifier>{987bcce0-f79d-48c6-9005-4a4950fd84c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\LV2">
+      <UniqueIdentifier>{8cee3d94-d38f-43a6-914d-ed812bdf4374}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\LV3">
+      <UniqueIdentifier>{eaca8539-f6df-4f2b-83d4-653f076dde59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\LV4">
+      <UniqueIdentifier>{c834c4ff-3efd-4cb6-b5d8-1f1f83da4cc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
