@@ -26,4 +26,12 @@
       <UniqueIdentifier>{c834c4ff-3efd-4cb6-b5d8-1f1f83da4cc1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="카드짝맞추기.cpp">
+      <Filter>소스 파일\LV3</Filter>
+    </ClCompile>
+    <ClCompile Include="로또의최고순위와최저순위.cpp">
+      <Filter>소스 파일\LV1</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>
