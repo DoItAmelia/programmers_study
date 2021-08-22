@@ -33,5 +33,8 @@
     <ClCompile Include="로또의최고순위와최저순위.cpp">
       <Filter>소스 파일\LV1</Filter>
     </ClCompile>
+    <ClCompile Include="모두0으로만들기.cpp">
+      <Filter>소스 파일\LV3</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
