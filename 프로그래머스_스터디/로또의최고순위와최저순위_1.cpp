@@ -1,7 +1,18 @@
 #include <vector>
+#include <iostream>
 using namespace std;
 
 vector<int> r;
+
+void choose_rank(int x)
+{
+	if (x == 6)	r.push_back(1);
+	else if (x == 5)	r.push_back(2);
+	else if (x == 4)	r.push_back(3);
+	else if (x == 3)	r.push_back(4);
+	else if (x == 2)	r.push_back(5);
+	else 	r.push_back(6);
+}
 
 vector<int> solution(vector<int> lottos, vector<int> win_nums) 
 {
@@ -26,12 +37,11 @@ vector<int> solution(vector<int> lottos, vector<int> win_nums)
 
 }
 
-int choose_rank(int x)
+int main()
 {
-	if (x == 6)	r.push_back(1);
-	else if (x == 5)	r.push_back(2);
-	else if (x == 4)	r.push_back(3);
-	else if (x == 3)	r.push_back(4);
-	else if (x == 2)	r.push_back(5);
-	else 	r.push_back(6);		
+	vector<int> lottos = { 44,1,0,0,31,25 };
+	vector<int> win_nums = { 31,10,45,1,6,19 };
+	for (int i = 0; i < 2; i++) {
+		cout << r[i] << endl;
+	}
 }
