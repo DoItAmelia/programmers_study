@@ -14,7 +14,7 @@ void choose_rank(int x)
 	else 	r.push_back(6);
 }
 
-vector<int> solution(vector<int> lottos, vector<int> win_nums) 
+vector<int> solution(vector<int> lottos, vector<int> win_nums)
 {
 	int cnt_zero = 0;// 민수의 번호 중 0의 #
 	int cnt_same = 0;// 민수의 번호와 당첨 번호 중 일치하는 #
@@ -31,17 +31,12 @@ vector<int> solution(vector<int> lottos, vector<int> win_nums)
 
 	int min = cnt_same;
 	int max = cnt_same + cnt_zero;
-	
-	choose_rank(min);
+
 	choose_rank(max);
+	choose_rank(min);
+
+
+	return r;
 
 }
 
-int main()
-{
-	vector<int> lottos = { 44,1,0,0,31,25 };
-	vector<int> win_nums = { 31,10,45,1,6,19 };
-	for (int i = 0; i < 2; i++) {
-		cout << r[i] << endl;
-	}
-}
