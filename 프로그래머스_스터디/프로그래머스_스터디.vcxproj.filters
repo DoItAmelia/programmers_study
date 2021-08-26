@@ -39,7 +39,10 @@
     <ClCompile Include="로또의최고순위와최저순위_2.cpp">
       <Filter>소스 파일\LV1</Filter>
     </ClCompile>
-    <ClCompile Include="110옮기기.cpp">
+    <ClCompile Include="110옮기기_self.cpp">
+      <Filter>소스 파일\LV3</Filter>
+    </ClCompile>
+    <ClCompile Include="110옮기기_참고.cpp">
       <Filter>소스 파일\LV3</Filter>
     </ClCompile>
   </ItemGroup>
