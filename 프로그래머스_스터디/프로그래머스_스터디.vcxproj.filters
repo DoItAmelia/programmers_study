@@ -45,5 +45,8 @@
     <ClCompile Include="110옮기기_참고.cpp">
       <Filter>소스 파일\LV3</Filter>
     </ClCompile>
+    <ClCompile Include="블록이동하기.cpp">
+      <Filter>소스 파일\LV3</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
