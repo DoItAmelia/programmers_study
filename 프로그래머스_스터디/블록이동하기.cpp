@@ -32,7 +32,7 @@ bool visit[100][100][4];
 // 1) 단순 이동(위-아래-오른-왼)
 // 2) 회전(기준점을 축으로 시계/반시계, 반대점을 축으로 시계/반시계
 
-// 1) 단순 이동시 
+// 1) 단순 이동시 or 2) 기준점을 축으로 회전시
 bool RangeCheck(robot d, int i, vector<vector<int>>& board) {
 	// 기준점의 이동
 	int x = d.x + dx[i];
@@ -50,35 +50,16 @@ bool RangeCheck(robot d, int i, vector<vector<int>>& board) {
 }
 
 
-// 2) 기준점을 축으로 회전시 
-// **회전의 경우, 회전 후 기존의 반대점이 기준점이 되고, 기존의 기준점이 반대점이 된다. 
-bool RotateCheck(robot d, int i, vector<vector<int>>& board) {
-	// 기준점의 이동
-	int x = d.x + dx[i];
-	int y = d.y + dy[i];
-	// 반대점의 이동 
-	int nx = (d.x + dx[d.dir]) + dx[i];
-	int ny = (d.y + dy[d.dir]) + dy[i];
-
-	if (x >= 0 && x < SIZE && y >= 0 && y < SIZE // 기준점이 회전 후 격자 안인가
-		&& nx >= 0 && nx < SIZE && ny >= 0 && ny < SIZE // 반대점이 회전 후 격자 안인가
-		&& board[y][x] == 0 && board[ny][nx] == 0 // 기준점 & 반대점에 회전 후 벽이 없는가
-		&& !visit[d.y][d.x][i]) // 방문하지 않은 곳인가
-		return true; // 모두 만족시 true
-	return false; // 하나라도 만족하지 않을 시 false 
-}
-
 // 3) 반대점을 축으로 회전시
-// ** 
 bool OpRotateCheck(robot d, int i, vector<vector<int>>& board) {
 	int x = d.x + dx[i];
 	int y = d.y + dy[i];
 	int nx = d.x + dx[d.dir] + dx[i];
 	int ny = d.y + dy[d.dir] + dy[i];
 
-	if (x >= 0 && x < SIZE && y >= 0 && y < SIZE // 기준점이 회전 후 격자 안인가
-		&& nx >= 0 && nx < SIZE &&  ny >= 0 && ny < SIZE // 반대점이 회전 후 격자 안인가
-		&& board[y][x] == 0 && board[ny][nx] == 0 // 기준점 & 반대점에 회전 후 벽이 없는가
+	if (x >= 0 && x < SIZE && y >= 0 && y < SIZE 
+		&& nx >= 0 && nx < SIZE &&  ny >= 0 && ny < SIZE 
+		&& board[y][x] == 0 && board[ny][nx] == 0 
 		&& !visit[ny][nx][3 - d.dir]) // 방문하지 않은 곳인가
 		return true; // 모두 만족시 true
 	return false; // 하나라도 만족하지 않을 시 false
@@ -89,8 +70,8 @@ int solution(vector<vector<int>> board) {
 	int answer = 0; // 최종 답으로 쓰일 변수 선언
 	SIZE = (int)board.size(); // INT 변수에 board의 행 개수 저장
 	
+	queue<robot> q; // robot형 큐 q 선언
 	robot d(0, 0, 0, 0); //(0,0) 오른쪽 방향
-	queue<robot> q; // drone형 큐 q 선언
 	q.push(d); // q에 d 삽입
 
 	while (q.size()) {
@@ -110,31 +91,38 @@ int solution(vector<vector<int>> board) {
 		// 만약 아직 도착점에 도달하지 못했다면
 		// 1) 단순 이동(위-아래-오른-왼)
 		for (int i = 0; i < 4; i++) {
-			if (RangeCheck(top, i, board)) {
-				robot temp(top.y + dy[i], top.x + dx[i], top.dir, top.time + 1);
-				q.push(temp);
+			if (RangeCheck(top, i, board)) { // 이동 가능한지 확인
+				robot temp(top.y + dy[i], top.x + dx[i], top.dir, top.time + 1); // 이동 후 기준점의 좌표, 방향(이전과 동일), 시간(이전+1) temp에 저장
+				q.push(temp); // q에 temp 삽입
 			}
 		}
 
-		if (top.dir % 2 == 0) {// 0 or 2 현재 방향이 좌우
-			for (int i = 1; i < 4; i += 2) {
-				if (RotateCheck(top, i, board)) {//기준점 회전
+		// 2) 회전
+		// 2-1) 현재 로봇의 방향이 좌 or 우
+		if (top.dir % 2 == 0) {
+			for (int i = 1; i < 4; i += 2) { 
+				// 기준점을 축으로 회전
+				if (RangeCheck(top, i, board)) {
 					robot temp(top.y, top.x, i, top.time + 1);
 					q.push(temp);
 				}
-				if (OpRotateCheck(top, i, board)) {//반대점 회전
+				// 반대점을 축으로 회전
+				if (OpRotateCheck(top, i, board)) {
 					robot temp(top.y + dy[top.dir] + dy[i], top.x + dx[top.dir] + dx[i], 4 - i, top.time + 1);
 					q.push(temp);
 				}
 			}
 		}
-		else {// 1 or 3 상하
+		// 2-2) 현재 로봇의 방향이 위 or 아래
+		else {
 			for (int i = 0; i < 4; i += 2) {
-				if (RotateCheck(top, i, board)) {//기준점 회전
+				// 기준점을 축으로 회전
+				if (RangeCheck(top, i, board)) {
 					robot temp(top.y, top.x, i, top.time + 1);
 					q.push(temp);
 				}
-				if (OpRotateCheck(top, i, board)) {//반대점 회전
+				// 반대점을 축으로 회전
+				if (OpRotateCheck(top, i, board)) {
 					robot temp(top.y + dy[top.dir] + dy[i], top.x + dx[top.dir] + dx[i], 2 - i, top.time + 1);
 					q.push(temp);
 				}
